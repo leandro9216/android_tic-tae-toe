@@ -18,55 +18,98 @@ class MainActivity : AppCompatActivity() {
     var player1Won = false
     var player2Won = false
     var draw = false
-    var winnable = true
     var winsP1 = 0
     var winsP2 = 0
+    var button1Copy : Button? = null
+    var button2Copy : Button? = null
+    var button3Copy : Button? = null
+    var button4Copy : Button? = null
+    var button5Copy : Button? = null
+    var button6Copy : Button? = null
+    var button7Copy : Button? = null
+    var button8Copy : Button? = null
+    var button9Copy : Button? = null
+    var minmax : PlayerVsComputerLogic? = null
+    var vsComputer = false
+    var player2Text = "Player 2"
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         disableButtons()
-
+        setButtonCopy()
+        minmax = PlayerVsComputerLogic()
         button1.setOnClickListener {
            setButtonText(button1)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button2.setOnClickListener {
             setButtonText(button2)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button3.setOnClickListener {
             setButtonText(button3)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button4.setOnClickListener {
             setButtonText(button4)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button5.setOnClickListener {
             setButtonText(button5)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button6.setOnClickListener {
             setButtonText(button6)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button6.setOnClickListener {
             setButtonText(button6)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button7.setOnClickListener {
             setButtonText(button7)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button8.setOnClickListener {
             setButtonText(button8)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         button9.setOnClickListener {
             setButtonText(button9)
+            if(vsComputer) minmax!!.nextMove(this)
         }
         start.setOnClickListener{
+            vsComputer = true
             start.visibility = View.GONE
+            start2.visibility = View.GONE
             reset.visibility = View.VISIBLE
             playerTurn.text = "Player 1"
+            player2Text = "Jack"
             turnLayout.visibility = View.VISIBLE
             winLayoutPlayer1.visibility = View.VISIBLE
             winLayoutPlayer2.visibility = View.VISIBLE
             enableButtons()
             winPlayer1.text = winsP1.toString()
             winPlayer2.text = winsP2.toString()
+            winsText2.text = "Wins $player2Text:"
+        }
+        start2.setOnClickListener{
+            vsComputer = false
+            start.visibility = View.GONE
+            start2.visibility = View.GONE
+            reset.visibility = View.VISIBLE
+            playerTurn.text = "Player 1"
+            player2Text = "Player 2"
+            turnLayout.visibility = View.VISIBLE
+            winLayoutPlayer1.visibility = View.VISIBLE
+            winLayoutPlayer2.visibility = View.VISIBLE
+            enableButtons()
+            winPlayer1.text = winsP1.toString()
+            winPlayer2.text = winsP2.toString()
+            winsText2.text = "Wins $player2Text:"
         }
         reset.setOnClickListener{
             if(!isEmpty()) cleanAll()
@@ -79,8 +122,7 @@ class MainActivity : AppCompatActivity() {
             if (player1Turn) {
                 button.text = "O"
                 button.setTextColor(resources.getColor(R.color.naught))
-
-            } else{
+            } else if(!vsComputer) {
                 button.text = "X"
                 button.setTextColor(resources.getColor(R.color.cross))
             }
@@ -101,21 +143,23 @@ class MainActivity : AppCompatActivity() {
         if (player1Turn)
             playerTurn.text = "Player 1"
         else
-            playerTurn.text = "Player 2"
+            playerTurn.text = player2Text
     }
 
     fun check() {
+        val winnerUnicode = 0x1F389
+        val drawUnicode = 0x1F60A
         if (crossHorizontal() || crossVertical() || crossDiagonal()) {
             if (player1Turn) {
                 player1Won = true
                 winsP1++
-                setWinnerText("The winner is Player 1!")
+                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is Player 1!"+String(Character.toChars(winnerUnicode)))
 
             }
             else {
                 player2Won = true
                 winsP2++
-                setWinnerText("The winner is Player 2!")
+                setWinnerText(String(Character.toChars(winnerUnicode))+ "The winner is $player2Text!" + String(Character.toChars(winnerUnicode)))
             }
         } else if (naughtsHorizontal() || naughtsVertical()
             || naughtsDiagonal()
@@ -123,21 +167,21 @@ class MainActivity : AppCompatActivity() {
             if (player1Turn){
                 player1Won = true
                 winsP1++
-                setWinnerText("The winner is Player 1!")
+                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is Player 1!"+String(Character.toChars(winnerUnicode)))
             }
             else {
                 player2Won = true
                 winsP2++
-                setWinnerText("The winner is Player 2!")
+                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is $player2Text!"+String(Character.toChars(winnerUnicode)))
             }
-        } else if (NoLine() && !player1Turn && !player2Won) {
+        } else if (noMoreMovements() && !player1Won && !player2Won) {
+            setWinnerText("It's a draw!"+ String(Character.toChars(drawUnicode)))
             draw = true
-            setWinnerText("It's a draw!")
 
         }
     }
 
-    fun setWinnerText(text:String){
+    fun setWinnerText(text : String){
         winnerText.visibility = View.VISIBLE
         winnerText.text = text
         disableButtons()
@@ -209,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun NoLine(): Boolean {
+    fun noMoreMovements(): Boolean {
         return (!button1.text.equals("")
                 && !button2.text.equals("")
                 && !button3.text.equals("")
@@ -243,11 +287,12 @@ class MainActivity : AppCompatActivity() {
         button7.text = ""
         button8.text = ""
         button9.text = ""
-        player1Turn = !player1Turn
+        player1Turn = if(!vsComputer) !player1Turn
+        else true
         player1Won = false
         player2Won = false
         draw = false
-        playerTurn.text = if(player1Turn) "Player 1" else "Player 2"
+        playerTurn.text = if(player1Turn) "Player 1" else player2Text
         winnerText.visibility = View.GONE
         enableButtons()
     }
@@ -274,6 +319,18 @@ class MainActivity : AppCompatActivity() {
         button7.isEnabled = true
         button8.isEnabled = true
         button9.isEnabled = true
+    }
+
+    fun setButtonCopy(){
+        button1Copy = button1
+        button2Copy = button2
+        button3Copy = button3
+        button4Copy = button4
+        button5Copy = button5
+        button6Copy = button6
+        button7Copy = button7
+        button8Copy = button8
+        button9Copy = button9
     }
 
 }
