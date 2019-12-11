@@ -140,10 +140,14 @@ class MainActivity : AppCompatActivity() {
 
     fun changeTurn() {
         player1Turn = !player1Turn
-        if (player1Turn)
+        if (player1Turn) {
+            if(vsComputer) enableButtons()
             playerTurn.text = "Player 1"
-        else
+        }
+        else {
+            if(vsComputer) disableButtons()
             playerTurn.text = player2Text
+        }
     }
 
     fun check() {

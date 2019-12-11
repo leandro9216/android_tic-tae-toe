@@ -107,28 +107,7 @@ class PlayerVsComputerLogic {
 
 
     private fun getScore(currentBoardTextValue: Array<String?>): Int {
-        if (max.equals("O")) {
-            if (currentBoardTextValue[0] == "X" && currentBoardTextValue[1] == "X" && currentBoardTextValue[2] == "X" ||
-                currentBoardTextValue[3] == "X" && currentBoardTextValue[4] == "X" && currentBoardTextValue[5] == "X" ||
-                currentBoardTextValue[6] == "X" && currentBoardTextValue[7] == "X" && currentBoardTextValue[8] == "X" ||
-                currentBoardTextValue[0] == "X" && currentBoardTextValue[3] == "X" && currentBoardTextValue[6] == "X" ||
-                currentBoardTextValue[1] == "X" && currentBoardTextValue[4] == "X" && currentBoardTextValue[7] == "X" ||
-                currentBoardTextValue[2] == "X" && currentBoardTextValue[5] == "X" && currentBoardTextValue[8] == "X" ||
-                currentBoardTextValue[0] == "X" && currentBoardTextValue[4] == "X" && currentBoardTextValue[8] == "X" ||
-                currentBoardTextValue[2] == "X" && currentBoardTextValue[4] == "X" && currentBoardTextValue[6] == "X"
-            )
-                return -1
-            else if (currentBoardTextValue[0] == "O" && currentBoardTextValue[1] == "O" && currentBoardTextValue[2] == "O" ||
-                currentBoardTextValue[3] == "O" && currentBoardTextValue[4] == "O" && currentBoardTextValue[5] == "O" ||
-                currentBoardTextValue[6] == "O" && currentBoardTextValue[7] == "O" && currentBoardTextValue[8] == "O" ||
-                currentBoardTextValue[0] == "O" && currentBoardTextValue[3] == "O" && currentBoardTextValue[6] == "O" ||
-                currentBoardTextValue[1] == "O" && currentBoardTextValue[4] == "O" && currentBoardTextValue[7] == "O" ||
-                currentBoardTextValue[2] == "O" && currentBoardTextValue[5] == "O" && currentBoardTextValue[8] == "O" ||
-                currentBoardTextValue[0] == "O" && currentBoardTextValue[4] == "O" && currentBoardTextValue[8] == "O" ||
-                currentBoardTextValue[2] == "O" && currentBoardTextValue[4] == "O" && currentBoardTextValue[6] == "O"
-            )
-                return 1
-        } else if (max.equals("X")) {
+     if (max.equals("X")) {
             if (currentBoardTextValue[0] == "X" && currentBoardTextValue[1] == "X" && currentBoardTextValue[2] == "X" ||
                 currentBoardTextValue[3] == "X" && currentBoardTextValue[4] == "X" && currentBoardTextValue[5] == "X" ||
                 currentBoardTextValue[6] == "X" && currentBoardTextValue[7] == "X" && currentBoardTextValue[8] == "X" ||
