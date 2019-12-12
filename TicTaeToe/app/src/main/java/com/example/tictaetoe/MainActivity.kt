@@ -107,6 +107,8 @@ class MainActivity : AppCompatActivity() {
             start2.visibility = View.VISIBLE
             reset.visibility = View.GONE
             restart.visibility = View.GONE
+            winsP1 = 0
+            winsP2 = 0
             cleanAll()
             disableButtons()
         }
