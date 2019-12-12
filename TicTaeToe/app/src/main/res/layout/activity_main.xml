@@ -133,9 +133,10 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
-                android:visibility="gone"></TextView>
+                android:visibility="gone">
+            </TextView>
         </LinearLayout>
 
         <LinearLayout
