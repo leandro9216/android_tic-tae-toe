@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
-import android.R.id.button3
-import android.R.id.button2
-import android.R.id.button1
-import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Toast
+import android.text.InputType
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +30,11 @@ class MainActivity : AppCompatActivity() {
     var button9Copy : Button? = null
     var minmax : PlayerVsComputerLogic? = null
     var vsComputer = false
-    var player2Text = "Player 2"
+    var player2Name = "Player 2"
+    var player1Name = ""
+    var setPlayer1Name = false
+    var setPlayer2Name = false
+    var title = ""
 
 
 
@@ -83,36 +86,29 @@ class MainActivity : AppCompatActivity() {
         }
         start.setOnClickListener{
             vsComputer = true
-            start.visibility = View.GONE
-            start2.visibility = View.GONE
-            reset.visibility = View.VISIBLE
-            playerTurn.text = "Player 1"
-            player2Text = "Jack"
-            turnLayout.visibility = View.VISIBLE
-            winLayoutPlayer1.visibility = View.VISIBLE
-            winLayoutPlayer2.visibility = View.VISIBLE
-            enableButtons()
-            winPlayer1.text = winsP1.toString()
-            winPlayer2.text = winsP2.toString()
-            winsText2.text = "Wins $player2Text:"
+            title = "Insert player's name"
+            showInputDialog(title)
         }
         start2.setOnClickListener{
             vsComputer = false
-            start.visibility = View.GONE
-            start2.visibility = View.GONE
-            reset.visibility = View.VISIBLE
-            playerTurn.text = "Player 1"
-            player2Text = "Player 2"
-            turnLayout.visibility = View.VISIBLE
-            winLayoutPlayer1.visibility = View.VISIBLE
-            winLayoutPlayer2.visibility = View.VISIBLE
-            enableButtons()
-            winPlayer1.text = winsP1.toString()
-            winPlayer2.text = winsP2.toString()
-            winsText2.text = "Wins $player2Text:"
+            title = "Insert first player name"
+            showInputDialog(title)
         }
         reset.setOnClickListener{
             if(!isEmpty()) cleanAll()
+        }
+
+        restart.setOnClickListener{
+            turnLayout.visibility = View.GONE
+            winLayoutPlayer1.visibility = View.GONE
+            winLayoutPlayer2.visibility = View.GONE
+            mainTitle.visibility = View.VISIBLE
+            start.visibility = View.VISIBLE
+            start2.visibility = View.VISIBLE
+            reset.visibility = View.GONE
+            restart.visibility = View.GONE
+            cleanAll()
+            disableButtons()
         }
     }
 
@@ -130,23 +126,22 @@ class MainActivity : AppCompatActivity() {
             if(!player2Won && !player1Won && !draw) {
                 changeTurn()
             }
-        } else setAlertText()
+        } else setAlertText("Position already selected")
     }
 
-    @SuppressLint("ShowToast")
-    fun setAlertText(){
-        Toast.makeText(this,"Option already selected", Toast.LENGTH_LONG)
+    fun setAlertText(text:String){
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
     fun changeTurn() {
         player1Turn = !player1Turn
         if (player1Turn) {
             if(vsComputer) enableButtons()
-            playerTurn.text = "Player 1"
+            playerTurn.text = player1Name
         }
         else {
             if(vsComputer) disableButtons()
-            playerTurn.text = player2Text
+            playerTurn.text = player2Name
         }
     }
 
@@ -157,13 +152,13 @@ class MainActivity : AppCompatActivity() {
             if (player1Turn) {
                 player1Won = true
                 winsP1++
-                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is Player 1!"+String(Character.toChars(winnerUnicode)))
+                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is $player1Name!"+String(Character.toChars(winnerUnicode)))
 
             }
             else {
                 player2Won = true
                 winsP2++
-                setWinnerText(String(Character.toChars(winnerUnicode))+ "The winner is $player2Text!" + String(Character.toChars(winnerUnicode)))
+                setWinnerText(String(Character.toChars(winnerUnicode))+ "The winner is $player2Name!" + String(Character.toChars(winnerUnicode)))
             }
         } else if (naughtsHorizontal() || naughtsVertical()
             || naughtsDiagonal()
@@ -171,12 +166,12 @@ class MainActivity : AppCompatActivity() {
             if (player1Turn){
                 player1Won = true
                 winsP1++
-                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is Player 1!"+String(Character.toChars(winnerUnicode)))
+                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is $player1Name!"+String(Character.toChars(winnerUnicode)))
             }
             else {
                 player2Won = true
                 winsP2++
-                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is $player2Text!"+String(Character.toChars(winnerUnicode)))
+                setWinnerText(String(Character.toChars(winnerUnicode))+"The winner is $player2Name!"+String(Character.toChars(winnerUnicode)))
             }
         } else if (noMoreMovements() && !player1Won && !player2Won) {
             setWinnerText("It's a draw!"+ String(Character.toChars(drawUnicode)))
@@ -296,7 +291,9 @@ class MainActivity : AppCompatActivity() {
         player1Won = false
         player2Won = false
         draw = false
-        playerTurn.text = if(player1Turn) "Player 1" else player2Text
+        setPlayer1Name = false
+        setPlayer2Name =  false
+        playerTurn.text = if(player1Turn) player1Name else player2Name
         winnerText.visibility = View.GONE
         enableButtons()
     }
@@ -335,6 +332,67 @@ class MainActivity : AppCompatActivity() {
         button7Copy = button7
         button8Copy = button8
         button9Copy = button9
+    }
+
+
+    fun setComputerConfig(){
+        player2Name = "Jack"
+        commonConfig()
+    }
+
+    fun setPlayerConfig(){
+      commonConfig()
+    }
+
+    fun commonConfig(){
+        start.visibility = View.GONE
+        start2.visibility = View.GONE
+        reset.visibility = View.VISIBLE
+        restart.visibility = View.VISIBLE
+        mainTitle.visibility = View.GONE
+        turnLayout.visibility = View.VISIBLE
+        winLayoutPlayer1.visibility = View.VISIBLE
+        winLayoutPlayer2.visibility = View.VISIBLE
+        playerTurn.text = player1Name
+        winPlayer1.text = winsP1.toString()
+        winPlayer2.text = winsP2.toString()
+        winsText1.text = "Wins $player1Name:"
+        winsText2.text = "Wins $player2Name:"
+        enableButtons()
+    }
+
+    private fun showInputDialog(alertTitle:String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(alertTitle)
+
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        builder.setPositiveButton("OK") {
+                dialog, which ->
+            if(input.text.toString().isNotEmpty()) {
+                if(!setPlayer1Name) {
+                    player1Name = input.text.toString()
+                    setPlayer1Name = true
+                    title = "Insert second player name"
+                } else {
+                    player2Name = input.text.toString()
+                    setPlayer2Name = true
+                }
+                if (vsComputer) setComputerConfig()
+                else {
+                    if (!setPlayer2Name) showInputDialog(title)
+                    else setPlayerConfig()
+                }
+            } else {
+                setAlertText("Please, insert player's name")
+                showInputDialog(title)
+            }
+        }
+        builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+
+        builder.show()
     }
 
 }

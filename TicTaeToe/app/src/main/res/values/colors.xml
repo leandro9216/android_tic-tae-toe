@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="cross">#F90026</color>
     <color name="naught">#1005F9</color>
+    <color name="background">#067FA5</color>
+    <color name="board">#F1F5F5</color>
 </resources>

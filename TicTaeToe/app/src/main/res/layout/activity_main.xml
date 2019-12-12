@@ -4,7 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/mainTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TIC TAE TOE"
+        android:fontFamily="cursive"
+        android:layout_marginTop="40dp"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center">
+
+    </TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Turn:"
+                android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="18sp">
 
@@ -33,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:layout_marginLeft="5dp"
-                android:textSize="18sp">
+                android:textSize="18sp"
+                android:textStyle="bold">
             </TextView>
         </LinearLayout>
         <LinearLayout
@@ -48,6 +65,7 @@
                 android:id="@+id/winsText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
                 android:text="Wins Player 1:"
                 android:textStyle="bold"
                 android:textSize="18sp">
@@ -59,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:layout_marginLeft="5dp"
+                android:textStyle="bold"
                 android:textSize="18sp">
             </TextView>
         </LinearLayout>
@@ -74,6 +93,7 @@
                 android:id="@+id/winsText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
                 android:text=""
                 android:textStyle="bold"
                 android:textSize="18sp">
@@ -85,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:layout_marginLeft="5dp"
+                android:textStyle="bold"
                 android:textSize="18sp">
             </TextView>
         </LinearLayout>
@@ -111,6 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="gone"></TextView>
@@ -124,18 +146,21 @@
                 android:id="@+id/button1"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -147,18 +172,21 @@
                 android:id="@+id/button4"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button6"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -170,18 +198,21 @@
                 android:id="@+id/button7"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button8"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
+                android:backgroundTint="@color/board"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
@@ -192,38 +223,51 @@
         android:orientation="horizontal"
         android:layout_alignBottom="@+id/tableLayout"
         android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true">
         <Button
             android:layout_width="180dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:id="@+id/start"
             android:text="Player vs Computer"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:textColor="@android:color/white"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:textColor="@android:color/white" />
         <Button
             android:layout_width="180dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:id="@+id/start2"
             android:text="Player vs Player"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:textColor="@android:color/white"
-            android:layout_marginRight="10dp"/>
+            android:background="@drawable/button_background"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
-    <Button
-        android:layout_width="90dp"
-        android:layout_height="70dp"
-        android:id="@+id/reset"
-        android:text="Reset"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignBottom="@+id/tableLayout"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"
-        android:visibility="gone"/>
+        android:layout_marginRight="10dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/reset"
+            android:text="Reset"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/restart"
+            android:text="Restart"
+            android:background="@drawable/button_background"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+    </LinearLayout>
 </RelativeLayout>

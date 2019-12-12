@@ -42,12 +42,7 @@ class PlayerVsComputerLogic {
             val listScore = arrayListOf<MinMax>() // Get a list of scores for all available children
             for (i in 0 until children.size) {
                 listScore.add(
-                    minimax(
-                        children[i],
-                        setCurrentMinMaxValue(minMaxValue),
-                        1,
-                        depth + 1
-                    )
+                    minimax(children[i], setCurrentMinMaxValue(minMaxValue), 1, depth + 1)
                 )
             }
 
@@ -129,7 +124,6 @@ class PlayerVsComputerLogic {
             )
                 return -1
         }
-
         return 0
     }
 
